@@ -1,4 +1,3 @@
-help('modules')
 import numpy
 from sympy import Symbol
 
