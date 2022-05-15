@@ -22,7 +22,7 @@ testP = (isPass [] == False) &&
 
 isPass :: Predicate [Integer]
 
-isPass xs =  sum xs >= 40 
+isPass xs = sum xs >= 40  
 
 
 {-
@@ -45,12 +45,12 @@ testAl = (isAlphabet "" == True ) &&
 
 isAlphabet:: Predicate String 
 
-isAlphabet = all (`elem` ['a'..'z'] ++ ['A'..'Z']) 
+isAlphabet = all (`elem` ['A'..'Z']++['a'..'z'])
 
 {-
 
 ## Qiii: [2 mark] 
-Write a function `cmbList`, such that, given two lists, it returns a single list with all odd-position elements taken from the first list and even-position elements from the second list. Note, lists are 0-indexed.
+Write a function `cmbList`, such that, given two lists, it returns a single list with all odd-position elements taken from the first list and even-position elements from the second list. Elements of the result appear in the same order that they do in the appropriate input list. Note, lists are 0-indexed. 
 
 Your solution should satisfy: 
 -}
@@ -65,9 +65,9 @@ testcmbList =
 
 
 cmbList :: [a] -> [a] -> [a]
-cmbList [] _ = []
 cmbList _ [] = []
-cmbList (x:xs) (y:ys) = y:x: cmbList xs ys
+cmbList [] _ = []
+cmbList (x:xs) (y:ys) = y:x:cmbList xs ys 
 
 
 {-
@@ -89,7 +89,8 @@ testcmbProd =
         [0.782,4.42,16.548000000000002,1.2]) 
 
 cmbProd :: Num x => [x] -> [x] -> [x]
-cmbProd = zipWith (*) 
+
+cmbProd = zipWith (*)
 
 
 {-
@@ -110,8 +111,8 @@ testsqDiff =
 
 
 sqDiff :: [Int] -> [Int]
-sqDiff []        = []
-sqDiff (x:xs) = [(a-b)^2| (a,b) <- zip (x:xs) xs  , a > b ]
+sqDiff [] = []
+sqDiff xs@(y:ys)= [(a-b)^2| (a,b) <- zip xs ys, a > b]
 
 
 {-
@@ -133,14 +134,13 @@ testM2int =
 
 maybe2int :: [Maybe Int] -> Int 
 
-maybe2int xs = sum [x | Just x <- xs] 
-
+maybe2int xs = sum[x|Just x <- xs]
 {-
 
 ## Qvii: [4 mark] 
 
 Write a function `cmb :: Num a => String -> [a] -> [a] -> [a]`, which
-returns a list as long as the shorter of the two input lists with all
+returns a list twice as long as the shorter of the two input lists with all
 odd-position elements taken from the first list and even-position
 elements from the second list when the string is "List" or the product
 of the numbers at the same position from the two lists when the string
@@ -162,9 +162,10 @@ testcmb = (cmb "Hello" [] [] == []) &&
 
 
 cmb :: Num a => String -> [a] -> [a] -> [a]
-cmb xs ys zs 
-    | xs == "List" = cmbList ys zs
+
+cmb xs ys zs
     | xs == "Prod" = cmbProd ys zs
+    | xs == "List" = cmbList ys zs
     | otherwise = []
 
 
@@ -201,7 +202,8 @@ test1MK = the1Mk s1Db == [("Beth",65),("Adam",55),("Lisa",60),
 
 the1Mk :: [CS1] -> [(String, Int)]
 
-the1Mk bs = [(name b, the1 b )| b<- bs ]
+the1Mk bs = [(name b, the1 b)|b<-bs]
+
 {-
 
 ### Qviiib: [3 mark]
@@ -216,7 +218,7 @@ testSOF1 = tSOF1 s1Db == [("Lisa",65,60),("Mark",50,67)]
 
 tSOF1 :: [CS1] -> [(String, Int, Int)]
 
-tSOF1 bs = [ (name b, sys1 b, the1 b) | b <- bs, sof1 b > 70]
+tSOF1 bs = [(name b, sys1 b, the1 b)|b <- bs, sof1 b > 70]
 
 {-
 
@@ -231,9 +233,7 @@ testavg = avgSYS1 s1Db == 60.8
 
 avgSYS1 :: [CS1] -> Float  
  
-avgSYS1  bs = fromIntegral (sum[sys1 b| b <- bs]) / (fromIntegral $ length bs)
-   
-
+avgSYS1  bs = fromIntegral(sum[(sys1 b)|b <- bs])/ fromIntegral(length bs)
 
 {-
 ## Qix: [4 mark] 
@@ -259,10 +259,10 @@ testvowelDigit =
 
 
 vowelDigit :: String -> Bool 
-vowelDigit bs = even (length bs) && and[(even i && isVowel c)||(odd i && isDigit c)|(c,i) <- zip bs [0..]]
-    where  
-        isVowel c = c `elem` "AEIOUaeiou"
+vowelDigit xs = even (length xs) && and [(isDigit c && odd i)||(isVowel c && even i)|(c,i)<- zip xs [0..]]
+    where
         isDigit c = c `elem` "1234567890"
+        isVowel c = c `elem` "aeiouAEIOU"
 
 
 {-
@@ -281,15 +281,6 @@ the same structure. For a "Length-regular" tree, the value at a leaf is the leng
 Define `nullBR` to be the smallest possible balanced, length-regular tree.
 
 -}
-
-isSymmetric :: BinTree a-> Bool
-isSymmetric (Lf _) = True
-isSymmetric (Branch left y right) = (toNode left == toNode right) 
-  where
-    toNode (Lf 0) = 0
-    toNode (Lf _) = 1
-    toNode (Branch left y right) = 1 + toNode (left) + toNode(right) 
-
 nullBR :: BinTree x 
 
 nullBR = Lf 0 
@@ -311,10 +302,10 @@ testBal = (isTreeBal (nullBR) == True ) &&
 isTreeBal :: BinTree a -> Bool
 
 isTreeBal (Lf _) = True
-isTreeBal (Branch left y right) = (fromRoot left == fromRoot right) && isTreeBal left && isTreeBal right
+isTreeBal (Branch left y right) = (fromRoot left == fromRoot right) && isTreeBal left && isTreeBal  right
     where
-        fromRoot (Lf n) = 0
-        fromRoot (Branch lt cn rt) = 1 + max (fromRoot lt) (fromRoot rt)
+        fromRoot (Lf _) = 1
+        fromRoot (Branch left y right) = 1 + max (fromRoot left) (fromRoot right)
 
 
 {-
@@ -336,7 +327,7 @@ testN =
 treeNodes :: BinTree a -> Int
 
 treeNodes (Lf _) = 0
-treeNodes (Branch left y right) = 1 + treeNodes left + treeNodes right
+treeNodes (Branch left y right) = 1 + treeNodes left + treeNodes right 
 
 
 {-
@@ -356,10 +347,12 @@ testBcode =
   (toBarcode " " == Nothing)
 
 toBarcode :: String -> Maybe String  
-
+toBarcode "" = Just ""
 toBarcode xs
-    | all (`elem` "01") xs = Just (map f xs) 
-    | otherwise = Nothing 
+    | all (`elem` "01") xs = Just (map bcode xs) 
+    | otherwise = Nothing
     where
-        f c= if c == '0' then '.' else '|'
+        bcode '1' = '|'
+        bcode '0' = '.'
+
 
