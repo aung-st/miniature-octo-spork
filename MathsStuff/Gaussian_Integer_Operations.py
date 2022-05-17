@@ -6,13 +6,7 @@ def divide_GI(x,y,z,w):
     #Apply foil (Very messy I know...)
     f1 = z * x
     fi = (w*x) + (z*-y) 
-    f3 = None # placeholder
-    
-
-    if w < 0 and y<0: # -i * i = -i^2 = 1
-        f3 = -w*y
-    else: #i * i = i^2 = -1 
-        f3 = -1 * (-w)*y 
+    f3 = w*y
     
     fr = f1 + f3 
     denominator  = x**2 + y**2
@@ -39,17 +33,11 @@ def divide_GI(x,y,z,w):
     print('r = b - aq')
     print(f'r = ({z}+{w}i) - ({x}+{y}i)({quotient_r}+{quotient_i}i)')
 
-    #Apply foil again (Don't hang me plz...)
+    #Apply foil again 
     f1 = quotient_r * x
     fi = (quotient_i*x) + (quotient_r*y) 
-    f3 = None # placeholder
+    f3 = quotient_i*y 
 
-  
-    if w < 0 and y<0: # -i * i = -i^2 = 1
-        f3 = quotient_i*y
-    else: #i * i = i^2 = -1 
-        f3 = -1 * (quotient_i)*y  
-    
     fr = f1 + f3 
     
     print(f'r = ({z}+{w}i) - ({fr}+{fi}i)')
@@ -57,5 +45,4 @@ def divide_GI(x,y,z,w):
     print('b = aq + r =')
     print(f'({z}+{w}i) = ({x}+{y}i)({quotient_r}+{quotient_i}i) + ({z-fr}+{w-fi}i)') 
 
-divide_GI(1,2,3,4)
-
+divide_GI(1,-2,3,-4) #x,y,z,w such that we have (x+yi) and (z+wi)
