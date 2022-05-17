@@ -1,45 +1,61 @@
-def divide_GI(a,b,c,d): 
-    print(f'{a}+{b}i / {c}+{d}i =')
-    f1_n = a*c #R R -> R
-    f2_n = a * -d #R I -> I
-    f3_n = b*c  # I R -> I
-    f4_n = 0 #placeholder
-    if b < 0 and d < 0: #-i * -i = i^2 = -1
-        f4_n = b*-d
-    else:
-        f4_n = (b*-d) 
-    fr_n = f1_n + f4_n 
-    fi_n = f2_n + f3_n 
-
-    denominator  = c**2 + d**2
+def divide_GI(x,y,z,w): 
+    print(f'({z}+{w}i) / ({x}+{y}i) =')
+    #Multiply both numerator and denominator by conjugate
+    print(f'({z}+{w}i)({x}-{y}i) / ({x}+{y}i)({x}-{y}i) =')
     
-    print(f'{fr_n}/{denominator } + {fi_n}i/{denominator }') 
+    #Apply foil (Very messy I know...)
+    f1 = z * x
+    fi = (w*x) + (z*-y) 
+    f3 = None # placeholder
     
 
-    quotient_r = 0 #placeholder
-    quotient_i =0
-    remainder_i = 0
-    remainder_r = 0
-    if fr_n < 0:
-        quotient_r = -fr_n // (denominator )
-        remainder_r = -fr_n % (denominator )
-        remainder_r = -remainder_r
-    else:
-        quotient_r = fr_n // (denominator )
-        remainder_r = fr_n % (denominator )
-    if fi_n <0:
-        quotient_i = -fi_n // (denominator )
-        remainder_i = -fi_n % (denominator )
-        remainder_i = -remainder_i
-    else:
-        quotient_i = fi_n // (denominator )
-        remainder_i = fi_n % (denominator )
-
+    if w < 0 and y<0: # -i * i = -i^2 = 1
+        f3 = -w*y
+    else: #i * i = i^2 = -1 
+        f3 = -1 * (-w)*y 
     
-   
-    print(f'quotient: {quotient_r}/{denominator} + {quotient_i}i/{denominator}')
-    print(f'remainder: {remainder_r}/{denominator}+{remainder_i}i/{denominator}')
-    print(f'x ={a}+{b}i, y = {c}+{d}i')
-    print(f'y = xq+r')
-    print(f'{c}+{d}i = ({a}+{b}i)({quotient_r}/{denominator}+{quotient_i}i/{denominator})+({remainder_r}/{denominator}+{remainder_i}i/{denominator})')
+    fr = f1 + f3 
+    denominator  = x**2 + y**2
+    quotient_r = None 
+    quotient_i = None 
+
+    if fi < 0:
+        quotient_i= -fi//denominator
+        quotient_i = -quotient_i
+    else:
+        quotient_i= fi//denominator
+    
+    if fr < 0:
+        quotient_r= -fr//denominator
+        quotient_r = -quotient_r
+    else:
+        quotient_r= fr//denominator
+    
+    
+    print(f'{fr}/{denominator } + {fi}i/{denominator } =') 
+    print(f'{fr/denominator} + {fi/denominator}i \n')
+    print(f'quotient: {quotient_r} + {quotient_i}i')
+    print('b = aq + r \n')
+    print('r = b - aq')
+    print(f'r = ({z}+{w}i) - ({x}+{y}i)({quotient_r}+{quotient_i}i)')
+
+    #Apply foil again (Don't hang me plz...)
+    f1 = quotient_r * x
+    fi = (quotient_i*x) + (quotient_r*y) 
+    f3 = None # placeholder
+
+  
+    if w < 0 and y<0: # -i * i = -i^2 = 1
+        f3 = quotient_i*y
+    else: #i * i = i^2 = -1 
+        f3 = -1 * (quotient_i)*y  
+    
+    fr = f1 + f3 
+    
+    print(f'r = ({z}+{w}i) - ({fr}+{fi}i)')
+    print(f'r = ({z-fr}+{w-fi}i) \n')
+    print('b = aq + r =')
+    print(f'({z}+{w}i) = ({x}+{y}i)({quotient_r}+{quotient_i}i) + ({z-fr}+{w-fi}i)') 
+
 divide_GI(1,2,3,4)
+
