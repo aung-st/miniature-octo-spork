@@ -1,4 +1,3 @@
-
 def CRT(a,b,c,d,e,f):
     print("= denotes congruent to where the mod is involved. Don't shoot me plz")
     print(f'x = {a} mod {b}')
@@ -7,9 +6,10 @@ def CRT(a,b,c,d,e,f):
     
 
     N = b*d*f 
+    print(f'\nb_1 = {a}, b_2 = {c}, b_3 = {e}')
     print(f'\nN = n_1 x n_2 x n_3 = {N} where n_1 = {b}, n_2 = {d}, n_3 = {f}')
-    print(f'N_i = N/n_i')
-    print(f'x_i is given by taking N_i * x = 1 mod n_i and eliminating N_i from the lhs')
+    print(f'\nN_i = N/n_i')
+    print(f'\nx_i is given by taking N_i * x = 1 mod n_i and eliminating N_i from the lhs')
     print('\n')
     inv(d*f,b)
     print('\n')
@@ -59,5 +59,5 @@ def inv(n,m,show_working=True):
     return multiplier-1
 
 
-
-CRT(3,7,11,22,5,153)
+if __name__ == '__main__':
+    CRT(3,7,11,22,5,153)
