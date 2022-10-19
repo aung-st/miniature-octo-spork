@@ -2,23 +2,22 @@ import java.lang.Math;
 
 public class fixed_point_iteration {
     //initial input into approximation function
-    static double x = 1.0;
+    static double x = 1.0f;
     //lambda value
-    static float y = 1/12;
+    static float y = 1/12.f;
 
     //p(x) function
     public static double p(double x){
-        return x*((Math.pow(x,2)-5));
+        return x*((Math.pow(x,2.0f)-5.0f));
     }
 
     //g(x) approximation function
     public static double g(double x){
-        return x+((y*p(x))*(Math.pow(x,2)-3));
+        return x+((y*p(x))*(Math.pow(x,2.0f)-3.0f));
     }
     public static void main(String[] args){    
     
     //initialize functions
-    double px = p(x);
     double gx = g(x);
 
     //chooose n iterations (0 index)
@@ -34,17 +33,17 @@ public class fixed_point_iteration {
     //iterate to converge to sqrt(3)
     for (int i=0;i<max_iter;i++){
         approximations[i] = gx;
-        errors[i] = Math.abs(gx - Math.sqrt(3));
+        errors[i] = Math.abs(gx - Math.sqrt(3.0f));
 
         x = gx;
-        px = p(x);
-        gx = x+((y*px)*(Math.pow(x,2)-3));
+        gx = x+((y*p(x))*(Math.pow(x,2.0f)-3.0f));
     }
 
-    System.out.println("approximation of "+Math.sqrt(3));
+    System.out.println("approximation of "+Math.sqrt(3.0f));
     System.out.println();
     
     //First and last index have no alpha values due to the nature of the formula for order of convergence
+    //-1 is a placeholder for N/A
     alphas[0] = -1;
     alphas[max_iter-1]=-1;
 
@@ -58,4 +57,5 @@ public class fixed_point_iteration {
         }
     }
 }
+
 
